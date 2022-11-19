@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { Component } from "react";
 // import React, { useState } from "react";
 import TodoItem from './TodoItem'
 class TodoList extends Component {
@@ -38,6 +38,7 @@ class TodoList extends Component {
     getTodoItem() {
         return this.state.list.map((item, index) => {
             return (<TodoItem
+                key={index}
                 item={item}
                 index={index}
                 onDeltel={this.onDeltel} />)
