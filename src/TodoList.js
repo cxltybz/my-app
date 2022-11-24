@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 // import React, { useState } from "react";
-import TodoItem from './TodoItem'
+import TodoItem from './TodoItem';
+import axios from "axios";
 class TodoList extends Component {
     constructor(props) {
         super(props);
@@ -44,14 +45,42 @@ class TodoList extends Component {
                 onDeltel={this.onDeltel} />)
         })
     }
+    // 组件被挂载到页面之后,自动被执行
+    componentDidMount() {
+        // console.log('componentDidMount');
+        axios.get('/api/todolist').then((res) => {
+            console.log(res.data);
+            this.setState(() => {
+                return {
+                    list: res.data
+                }
+            })
+        }).catch(() => {
+
+        });
+    }
+    // 组件被更新之前,他会自动执行
+    shouldComponentUpdate() {
+        console.log('shouldComponentUpdate');
+        return true
+    }
+    // 组件被更新之前,它会自动执行,但是他在shouldComponentUpdate之后
+    // 如果shouldComponentUpdate返回true它才执行
+    // 如果返回false,这个函数就不会被执行了
+    componentWillUpdate() {
+        console.log('componentWillUpdate');
+    }
+
     render() {
+        console.log('child render');
         return <>
             <div>
                 <label htmlFor="input">输入内容</label>
-                <input id="input" value={this.state.inputValue} onChange={this.handInputonChange} />
+                <input id="input" value={this.state.inputValue} onChange={this.handInputonChange}
+                />
                 <button onClick={this.onhandClick}>提交</button>
             </div>
-            <ul>
+            <ul >
                 {
                     this.getTodoItem()
                 }

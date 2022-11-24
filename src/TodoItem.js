@@ -4,15 +4,24 @@ class TodoItem extends Component {
     constructor(props) {
         super(props)
     }
+    // 组件被更新之前,他会自动执行
+    shouldComponentUpdate(nextProps, nextState) {
+        if (nextProps.item !== this.props.item) {
+            return true
+        } else {
+            return false
+        }
+
+    }
     onDeltel() {
         const { index, onDeltel } = this.props
-        console.log(typeof index);
+
         onDeltel(index)
     }
     render() {
-        const { test } = this.props
+        console.log('child render');
         return <div onClick={this.onDeltel.bind(this)}>
-            {test}-- {this.props.item}
+            {this.props.item}
         </div>
     }
 }
@@ -24,7 +33,7 @@ TodoItem.propTypes = {
     index: PropTypes.number,
     onDeltel: PropTypes.func,
     item: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    test: PropTypes.string.isRequired
+
 }
 TodoItem.defaultProps = {
     test: 'hello word'
