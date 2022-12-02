@@ -9,6 +9,7 @@
     0% {
         opacity: 1;
         color: red;
+        font-size: 22px;
     }
     50% {
         opacity: 0.5;
